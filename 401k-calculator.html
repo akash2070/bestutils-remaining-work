@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A comprehensive 401k calculator to help you plan your retirement savings effectively.">
+  <meta name="keywords" content="401k calculator, retirement savings, financial planning, investment">
+  <title>401k Calculator | BestUtils</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 24px; }
+    h1 { text-align: center; color: #2d3748; font-size: 2rem; margin-bottom: 16px; }
+    label { display: block; margin: 12px 0 6px; color: #555; }
+    input { width: calc(100% - 22px); padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+    button { padding: 12px 20px; font-size: 1rem; border: none; border-radius: 6px; background: #3182ce; color: #fff; cursor: pointer; transition: background 0.2s; margin-top: 16px; }
+    button:hover { background: #2b6cb0; }
+    .result { margin-top: 20px; padding: 16px; background: #e2e8f0; border-radius: 6px; font-size: 1.2rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <header style="display:flex;align-items:center;justify-content:center;padding:24px 0 0 0;">
+    <span style="font-size:2rem;font-weight:700;color:#222;letter-spacing:1px;">BEST<span style="color:#3182ce;">UTILS</span></span>
+  </header>
+  <div class="container">
+    <h1>401k Calculator</h1>
+    <label for="current-age">Current Age:</label>
+    <input type="number" id="current-age" placeholder="Enter your current age">
+    <label for="retirement-age">Retirement Age:</label>
+    <input type="number" id="retirement-age" placeholder="Enter your desired retirement age">
+    <label for="current-savings">Current 401k Savings ($):</label>
+    <input type="number" id="current-savings" placeholder="Enter your current 401k savings">
+    <label for="annual-contribution">Annual Contribution ($):</label>
+    <input type="number" id="annual-contribution" placeholder="Enter your annual contribution">
+    <label for="annual-return">Expected Annual Return (%):</label>
+    <input type="number" id="annual-return" placeholder="Enter expected annual return">
+    <button onclick="calculate401k()">Calculate</button>
+    <div class="result" id="result"></div>
+  </div>
+  <footer style="text-align:center;padding:16px 0;color:#777;font-size:0.9rem;">
+    &copy; 2023 BestUtils. All rights reserved.
+  </footer>
+  <script>
+    function calculate401k() {
+      const currentAge = parseInt(document.getElementById('current-age').value);
+      const retirementAge = parseInt(document.getElementById('retirement-age').value);
+      const currentSavings = parseFloat(document.getElementById('current-savings').value);
+      const annualContribution = parseFloat(document.getElementById('annual-contribution').value);
+      const annualReturn = parseFloat(document.getElementById('annual-return').value) / 100;
+      const yearsToGrow = retirementAge - currentAge;
+
+      let futureValue = currentSavings;
+      for (let i = 0; i < yearsToGrow; i++) {
+        futureValue += annualContribution;
+        futureValue *= (1 + annualReturn);
+      }
+
+      document.getElementById('result').textContent = `Estimated 401k Savings at Retirement: $${futureValue.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>

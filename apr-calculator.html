@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculate your Annual Percentage Rate (APR) with our professional APR calculator.">
+  <meta name="keywords" content="APR calculator, annual percentage rate, financial calculator">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="http://bestutils.com/apr-calculator.html">
+  <title>APR Calculator | BestUtils</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 24px; }
+    h1 { text-align: center; color: #2d3748; font-size: 2rem; margin-bottom: 16px; }
+    p { text-align: center; color: #555; margin-bottom: 24px; }
+    label { display: block; margin: 12px 0 6px; color: #555; }
+    input { width: calc(100% - 22px); padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+    button { padding: 12px 20px; font-size: 1rem; border: none; border-radius: 6px; background: #3182ce; color: #fff; cursor: pointer; transition: background 0.2s; margin-top: 16px; }
+    button:hover { background: #2b6cb0; }
+    .result { margin-top: 20px; padding: 16px; background: #e2e8f0; border-radius: 6px; font-size: 1.2rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <header style="display:flex;align-items:center;justify-content:center;padding:24px 0 0 0;">
+    <span style="font-size:2rem;font-weight:700;color:#222;letter-spacing:1px;">BEST<span style="color:#3182ce;">UTILS</span></span>
+  </header>
+  <div class="container">
+    <h1>APR Calculator</h1>
+    <p>Use this calculator to determine your Annual Percentage Rate (APR) for loans and credit cards. Enter the loan amount, interest rate, and loan term, then click 'Calculate' to see your APR.</p>
+    <label for="loanAmount">Loan Amount ($):</label>
+    <input type="number" id="loanAmount" placeholder="Enter the loan amount">
+    <label for="interestRate">Interest Rate (%):</label>
+    <input type="number" id="interestRate" placeholder="Enter the interest rate">
+    <label for="loanTerm">Loan Term (years):</label>
+    <input type="number" id="loanTerm" placeholder="Enter the loan term">
+    <button onclick="calculateAPR()">Calculate</button>
+    <div class="result" id="result"></div>
+  </div>
+  <footer style="text-align:center;padding:16px 0;color:#777;font-size:0.9rem;">
+    &copy; 2023 BestUtils. All rights reserved.
+  </footer>
+  <script>
+    function calculateAPR() {
+      const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+      const interestRate = parseFloat(document.getElementById('interestRate').value) / 100;
+      const loanTerm = parseInt(document.getElementById('loanTerm').value);
+
+      const apr = (interestRate * loanAmount) / loanTerm;
+
+      document.getElementById('result').textContent = `Your APR is: ${apr.toFixed(2)}%`;
+    }
+  </script>
+</body>
+</html>

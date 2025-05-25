@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A fast, mobile-friendly, and easy-to-use basic calculator tool for all your quick math needs. Free online calculator by BestUtils.">
+  <meta name="keywords" content="calculator, basic calculator, online calculator, math, arithmetic, bestutils">
+  <title>Basic Calculator | BestUtils</title>
+  <link rel="canonical" href="https://bestutils.com/basic-calculator.html">
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 0; }
+    .container { max-width: 400px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 24px; }
+    h1 { text-align: center; color: #2d3748; font-size: 2rem; margin-bottom: 16px; }
+    .calculator { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .display { grid-column: span 4; background: #e2e8f0; border-radius: 6px; padding: 16px; font-size: 1.5rem; text-align: right; margin-bottom: 12px; min-height: 40px; }
+    button { padding: 16px; font-size: 1.1rem; border: none; border-radius: 6px; background: #3182ce; color: #fff; cursor: pointer; transition: background 0.2s; }
+    button:hover { background: #2b6cb0; }
+    button.operator { background: #f6ad55; color: #2d3748; }
+    button.operator:hover { background: #dd6b20; color: #fff; }
+    button.equal { background: #48bb78; }
+    button.equal:hover { background: #2f855a; }
+    button.clear { background: #e53e3e; }
+    button.clear:hover { background: #9b2c2c; }
+    @media (max-width: 500px) {
+      .container { max-width: 98vw; padding: 12px; }
+      h1 { font-size: 1.3rem; }
+      button { padding: 12px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header style="display:flex;align-items:center;justify-content:center;padding:24px 0 0 0;">
+    <span style="font-size:2rem;font-weight:700;color:#222;letter-spacing:1px;">BEST<span style="color:#3182ce;">UTILS</span></span>
+  </header>
+  <div class="container">
+    <h1>Basic Calculator</h1>
+    <p style="text-align:center;color:#555;font-size:1.05rem;margin-bottom:12px;">A fast, mobile-friendly, and easy-to-use calculator for all your basic math needs. Powered by BestUtils.</p>
+    <div style="background:#e6f0fa;border-radius:8px;padding:12px 16px;margin-bottom:18px;color:#225;">
+      <strong>How to use:</strong><br>
+      <ul style="margin:8px 0 0 18px;padding:0;font-size:0.98rem;">
+        <li>Click the number and operator buttons to enter your calculation.</li>
+        <li>Press <b>=</b> to see the result instantly.</li>
+        <li>Use <b>C</b> to clear the current calculation.</li>
+        <li>Works on all devices—no installation needed!</li>
+      </ul>
+    </div>
+    <div class="display" id="display">0</div>
+    <div class="calculator">
+      <button onclick="press('7')">7</button>
+      <button onclick="press('8')">8</button>
+      <button onclick="press('9')">9</button>
+      <button class="operator" onclick="press('/')">÷</button>
+      <button onclick="press('4')">4</button>
+      <button onclick="press('5')">5</button>
+      <button onclick="press('6')">6</button>
+      <button class="operator" onclick="press('*')">×</button>
+      <button onclick="press('1')">1</button>
+      <button onclick="press('2')">2</button>
+      <button onclick="press('3')">3</button>
+      <button class="operator" onclick="press('-')">−</button>
+      <button onclick="press('0')">0</button>
+      <button onclick="press('.')">.</button>
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button class="operator" onclick="press('+')">+</button>
+      <button class="equal" style="grid-column: span 4;" onclick="calculate()">=</button>
+    </div>
+  </div>
+  <script>
+    let current = '';
+    let resetNext = false;
+    function press(val) {
+      if (resetNext) { current = ''; resetNext = false; }
+      if (current.length > 20) return;
+      if (val === '.' && current.split(/[-+*/]/).pop().includes('.')) return;
+      current += val;
+      updateDisplay();
+    }
+    function updateDisplay() {
+      document.getElementById('display').textContent = current || '0';
+    }
+    function clearDisplay() {
+      current = '';
+      updateDisplay();
+    }
+    function calculate() {
+      try {
+        let result = eval(current.replace(/[^-+*/.\d]/g, ''));
+        if (typeof result === 'number' && isFinite(result)) {
+          current = result.toString();
+        } else {
+          current = '';
+        }
+      } catch {
+        current = '';
+      }
+      resetNext = true;
+      updateDisplay();
+    }
+  </script>
+</body>
+</html>
