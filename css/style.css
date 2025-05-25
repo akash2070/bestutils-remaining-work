@@ -29,3 +29,100 @@ a:hover { color: #2980b9; }
     h2 { font-size: 1.5rem; }
     body { font-size: 0.95rem; }
 }
+
+/* General Form Styling */
+.calculator-form div, .form-group {
+    margin-bottom: 12px;
+}
+
+.calculator-form label, .form-label {
+    display: inline-block;
+    margin-right: 10px;
+    /* Consider font-weight: bold; for better readability if desired */
+}
+
+.calculator-form input[type="number"],
+.calculator-form input[type="text"],
+.calculator-form input[type="date"],
+.calculator-form select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 5px; 
+    box-sizing: border-box; /* Add for better width control */
+}
+
+/* Responsive input widths */
+.calculator-form input[type="number"],
+.calculator-form input[type="text"],
+.calculator-form input[type="date"],
+.calculator-form select {
+    width: calc(100% - 100px); /* Default width, adjust 100px based on typical label width */
+    max-width: 250px; /* Max width for larger screens */
+}
+
+/* Adjust for smaller screens where labels might stack or be shorter */
+@media (max-width: 600px) {
+    .calculator-form input[type="number"],
+    .calculator-form input[type="text"],
+    .calculator-form input[type="date"],
+    .calculator-form select {
+        width: 100%; /* Full width on smaller screens */
+        max-width: none;
+        margin-right: 0;
+    }
+    .calculator-form label, .form-label {
+        width: 100%; /* Full width labels */
+        margin-bottom: 5px; /* Space between label and input */
+    }
+}
+
+
+.calculator-form button, .calc-button {
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5px;
+    font-size: 1rem;
+}
+
+.calculator-form button:hover, .calc-button:hover {
+    background-color: #2980b9;
+}
+
+.result-display, .calculator-result {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1.1rem;
+}
+
+.result-display p, .calculator-result p {
+    margin: 8px 0;
+}
+
+.result-display .value, .calculator-result .value {
+    font-weight: bold;
+}
+
+/* General Table Styling */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #f2f2f2;
+}

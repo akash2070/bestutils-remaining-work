@@ -56,7 +56,7 @@
 
             <section id="calculator-what-is-x-percent-of-y">
                 <h3>What is X% of Y?</h3>
-                <form id="formPercentOf">
+                <form id="formPercentOf" class="calculator-form">
                     <div>
                         <label for="percent">Percentage (X):</label>
                         <input type="number" id="percent" name="percent" step="any" required placeholder="%">
@@ -67,12 +67,12 @@
                     </div>
                     <button type="button" onclick="calculatePercentOf()">Calculate</button>
                 </form>
-                <div class="result-display"><p>Result: <span id="resultPercentOf"></span></p></div>
+                <div class="calculator-result"><p>Result: <span id="resultPercentOf" class="value"></span></p></div>
             </section>
 
             <section id="calculator-x-is-what-percent-of-y">
                 <h3>X is what % of Y?</h3>
-                <form id="formXIsWhatPercentOfY">
+                <form id="formXIsWhatPercentOfY" class="calculator-form">
                     <div>
                         <label for="numX1">Value (X):</label>
                         <input type="number" id="numX1" name="numX1" step="any" required>
@@ -83,12 +83,12 @@
                     </div>
                     <button type="button" onclick="calculateXIsWhatPercentOfY()">Calculate</button>
                 </form>
-                <div class="result-display"><p>Result: <span id="resultXIsWhatPercentOfY"></span>%</p></div>
+                <div class="calculator-result"><p>Result: <span id="resultXIsWhatPercentOfY" class="value"></span>%</p></div>
             </section>
 
             <section id="calculator-percentage-change">
                 <h3>Percentage Change (Increase/Decrease)</h3>
-                <form id="formPercentageChange">
+                <form id="formPercentageChange" class="calculator-form">
                     <div>
                         <label for="initialValue">Initial Value:</label>
                         <input type="number" id="initialValue" name="initialValue" step="any" required>
@@ -99,17 +99,10 @@
                     </div>
                     <button type="button" onclick="calculatePercentageChange()">Calculate</button>
                 </form>
-                <div class="result-display"><p>Change: <span id="resultPercentageChange"></span>%</p></div>
+                <div class="calculator-result"><p>Change: <span id="resultPercentageChange" class="value"></span>%</p></div>
             </section>
             
-            <style> /* Scoped styles for better layout of calculator forms */
-                form div { margin-bottom: 10px; }
-                form label { display: inline-block; width: 150px; }
-                form input[type="number"] { width: 150px; padding: 5px; }
-                form button { padding: 8px 15px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; }
-                form button:hover { background-color: #2980b9; }
-                .result-display { margin-top: 10px; font-weight: bold; }
-            </style>
+            <!-- Removed style block that was here -->
 
             <section id="how-to-use">
                 <h2>How to Use</h2>
@@ -149,21 +142,28 @@
     <script>
         function getNum(id) { return parseFloat(document.getElementById(id).value); }
         function setResult(id, value) { document.getElementById(id).textContent = value; }
-        function displayError(id, message) { document.getElementById(id).textContent = 'Error: ' + message; }
+        function displayError(id, message) { 
+            const el = document.getElementById(id);
+            el.textContent = 'Error: ' + message;
+            el.style.color = 'red'; // Ensure error messages are distinct
+        }
 
         function calculatePercentOf() {
             const percent = getNum('percent');
             const numY = getNum('numY');
+            const resultSpan = document.getElementById('resultPercentOf');
             if (isNaN(percent) || isNaN(numY)) {
                 displayError('resultPercentOf', 'Please enter valid numbers.');
                 return;
             }
+            resultSpan.style.color = 'inherit'; 
             setResult('resultPercentOf', (percent / 100) * numY);
         }
 
         function calculateXIsWhatPercentOfY() {
             const numX1 = getNum('numX1');
             const numY1 = getNum('numY1');
+            const resultSpan = document.getElementById('resultXIsWhatPercentOfY');
             if (isNaN(numX1) || isNaN(numY1)) {
                 displayError('resultXIsWhatPercentOfY', 'Please enter valid numbers.');
                 return;
@@ -172,23 +172,30 @@
                 displayError('resultXIsWhatPercentOfY', 'Total Value (Y) cannot be zero.');
                 return;
             }
+            resultSpan.style.color = 'inherit';
             setResult('resultXIsWhatPercentOfY', (numX1 / numY1) * 100);
         }
 
         function calculatePercentageChange() {
             const initialValue = getNum('initialValue');
             const finalValue = getNum('finalValue');
+            const resultSpan = document.getElementById('resultPercentageChange');
             if (isNaN(initialValue) || isNaN(finalValue)) {
                 displayError('resultPercentageChange', 'Please enter valid numbers.');
                 return;
             }
             if (initialValue === 0) {
-                displayError('resultPercentageChange', 'Initial Value cannot be zero for percentage change unless final value is also zero.');
-                 if (finalValue === 0) setResult('resultPercentageChange', 0); // 0 to 0 is 0% change
+                if (finalValue === 0) {
+                     resultSpan.style.color = 'inherit';
+                     setResult('resultPercentageChange', 0); 
+                } else {
+                    displayError('resultPercentageChange', 'Initial Value cannot be zero for percentage change unless final value is also zero.');
+                }
                 return;
             }
+            resultSpan.style.color = 'inherit';
             const change = ((finalValue - initialValue) / initialValue) * 100;
-            setResult('resultPercentageChange', change.toFixed(2)); // .toFixed(2) for cleaner output
+            setResult('resultPercentageChange', change.toFixed(2)); 
         }
     </script>
 </body>

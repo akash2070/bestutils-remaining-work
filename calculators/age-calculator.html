@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator - Find Your Age | Calculate Age From Date of Birth | BestUtils.com</title>
+    <meta name="description" content="Easily calculate your age or someone else's age based on their date of birth. Our Age Calculator provides the age in years, months, and days.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://bestutils.com/calculators/age-calculator.html">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Use the Age Calculator",
+      "description": "Calculate age in years, months, and days from a date of birth.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Enter Date of Birth",
+          "text": "Select or enter the date of birth using the provided date picker."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Select 'As of' Date (Optional)",
+          "text": "Optionally, select or enter the date for which you want to calculate the age. Defaults to today's date."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Calculate Age",
+          "text": "Click the 'Calculate Age' button to see the age displayed in years, months, and days."
+        }
+      ]
+    }
+    </script>
+    <!-- Removed style block -->
+</head>
+<body>
+    <header>
+        <h1>Age Calculator</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home (Main Page)</a></li>
+            <li><a href="https://bestutils.com/calculators/">Calculators Home (BestUtils)</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <article>
+            <section id="calculator">
+                <h2>Calculate Age</h2>
+                <form id="ageForm" class="calculator-form">
+                    <div>
+                        <label for="birthDate">Date of Birth:</label>
+                        <input type="date" id="birthDate" required>
+                    </div>
+                    <div>
+                        <label for="asOfDate">Calculate age as of:</label>
+                        <input type="date" id="asOfDate">
+                    </div>
+                    <button type="button" onclick="calculateAge()">Calculate Age</button>
+                </form>
+                <div id="ageResult" class="calculator-result" style="display:none;">
+                    <p id="calculatedAge"></p> {/* font-weight:bold removed as it was in the style block */}
+                </div>
+            </section>
+
+            <section id="description">
+                <h2>Description</h2>
+                <p>The Age Calculator determines the age of a person, or the duration between two dates, in terms of years, months, and days. Simply enter a date of birth and, optionally, a specific date to calculate the age as of. If no 'as of' date is chosen, it will calculate the age based on today's date.</p>
+            </section>
+
+            <section id="how-to-use">
+                <h2>How to Use</h2>
+                <ol>
+                    <li><strong>Enter Date of Birth:</strong> Use the date picker to select the day, month, and year of birth.</li>
+                    <li><strong>Enter 'As of' Date (Optional):</strong> If you want to calculate the age at a specific point in time other than today, select that date using the second date picker. If you leave this blank, the age will be calculated based on the current date.</li>
+                    <li><strong>Click "Calculate Age":</strong> The result will show the age in years, months, and days.</li>
+                </ol>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> BestUtils.com - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Set default for asOfDate to today
+        document.getElementById('asOfDate').valueAsDate = new Date();
+
+        function calculateAge() {
+            const birthDateInput = document.getElementById('birthDate').value;
+            const asOfDateInput = document.getElementById('asOfDate').value;
+            const ageResultP = document.getElementById('calculatedAge');
+            const ageResultDiv = document.getElementById('ageResult');
+
+            if (!birthDateInput) {
+                ageResultDiv.style.display = 'block';
+                ageResultP.style.color = 'red';
+                ageResultP.textContent = 'Error: Please enter a valid date of birth.';
+                return;
+            }
+
+            const birthDate = new Date(birthDateInput);
+            const asOfDate = asOfDateInput ? new Date(asOfDateInput) : new Date();
+            if (!asOfDateInput) { // If asOfDate is today, set time to 0 to compare date parts consistently
+                 asOfDate.setHours(0,0,0,0); 
+            }
+            // Use UTC methods to get date parts to avoid timezone shifts from input type="date"
+            // then reconstruct as local date objects for calculation.
+            const birthYear = birthDate.getUTCFullYear();
+            const birthMonth = birthDate.getUTCMonth();
+            const birthDay = birthDate.getUTCDate();
+            const birthDateLocal = new Date(birthYear, birthMonth, birthDay);
+
+            // For 'as of date', if it was user-inputted, also use UTC parts to reconstruct
+            // to ensure it's treated as the selected calendar date.
+            const asOfYear = asOfDateInput ? (new Date(asOfDateInput)).getUTCFullYear() : asOfDate.getFullYear();
+            const asOfMonth = asOfDateInput ? (new Date(asOfDateInput)).getUTCMonth() : asOfDate.getMonth();
+            const asOfDay = asOfDateInput ? (new Date(asOfDateInput)).getUTCDate() : asOfDate.getDate();
+            const asOfDateLocal = new Date(asOfYear, asOfMonth, asOfDay);
+
+
+            if (birthDateLocal > asOfDateLocal) { 
+                ageResultDiv.style.display = 'block';
+                ageResultP.style.color = 'red';
+                ageResultP.textContent = 'Error: Date of birth cannot be in the future of the "as of" date.';
+                return;
+            }
+
+            let years = asOfDateLocal.getFullYear() - birthDateLocal.getFullYear();
+            let months = asOfDateLocal.getMonth() - birthDateLocal.getMonth();
+            let days = asOfDateLocal.getDate() - birthDateLocal.getDate();
+
+            if (days < 0) {
+                months--;
+                const lastDayOfPrevMonth = new Date(asOfDateLocal.getFullYear(), asOfDateLocal.getMonth(), 0).getDate();
+                days += lastDayOfPrevMonth; 
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            ageResultDiv.style.display = 'block';
+            ageResultP.style.color = 'inherit'; // Reset color from potential error
+            
+            let ageString = `Age: ${years} year${years !== 1 ? 's' : ''}`;
+            if (months > 0 || (years === 0 && months === 0 && days >= 0)) {
+                 ageString += `, ${months} month${months !== 1 ? 's' : ''}`;
+            }
+            if (days >= 0 && (days > 0 || (years === 0 && months === 0))) { 
+                ageString += `, ${days} day${days !== 1 ? 's' : ''}`;
+            }
+            
+            ageString += '.';
+            
+            ageResultP.textContent = ageString;
+        }
+    </script>
+</body>
+</html>
