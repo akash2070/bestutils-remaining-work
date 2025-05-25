@@ -1,0 +1,31 @@
+body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
+header { background: #333; color: #fff; padding: 1rem 0; text-align: center; }
+header h1 { margin: 0; }
+nav { background: #444; padding: 0.5rem; text-align: center;}
+nav ul { list-style: none; padding: 0; margin: 0; }
+nav ul li { display: inline; margin-right: 20px; }
+nav ul li a { color: #fff; text-decoration: none; }
+main { padding: 20px; } /* This was main.container before, generalise to main */
+.container { max-width: 960px; margin: auto; /*overflow: auto; */ /* Removed overflow:auto for now */ padding: 0 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+section { margin-bottom: 20px; padding: 20px; border-bottom: 1px #eee solid; }
+section:last-child { border-bottom: none; }
+h2 { color: #333; }
+.calculator-list article { margin-bottom: 15px; padding: 15px; background-color: #f9f9f9; border-radius: 5px; }
+.calculator-list h3 { margin-top: 0; }
+footer { text-align: center; padding: 20px; background: #333; color: #fff; margin-top: 20px;}
+a { color: #3498db; }
+a:hover { color: #2980b9; }
+
+/* Basic responsive adjustments */
+@media (max-width: 768px) {
+    nav ul li { display: block; margin-bottom: 10px; margin-right: 0; }
+    .container { padding: 0 10px; }
+    main { padding: 10px; }
+    section { padding: 15px; }
+}
+
+@media (max-width: 480px) {
+    header h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+    body { font-size: 0.95rem; }
+}
