@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator - Calculate Your Body Mass Index | BestUtils.com</title>
+    <meta name="description" content="Use our free BMI Calculator to determine your Body Mass Index. Input your height and weight to get your BMI score and understand its implications for your health.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://bestutils.com/calculators/bmi-calculator.html">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Use the BMI Calculator",
+      "description": "Calculate your Body Mass Index using metric or imperial units.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Select Units",
+          "text": "Choose your preferred unit system: Metric (kilograms and centimeters) or Imperial (pounds and inches)."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Enter Weight",
+          "text": "Input your weight in the selected unit (kg or lbs)."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Enter Height",
+          "text": "Input your height in the selected unit (cm or feet and inches)."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Calculate BMI",
+          "text": "Click the 'Calculate BMI' button to see your BMI value and category."
+        }
+      ]
+    }
+    </script>
+    <!-- Removed style block -->
+</head>
+<body>
+    <header>
+        <h1>BMI Calculator</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home (Main Page)</a></li>
+            <li><a href="https://bestutils.com/calculators/">Calculators Home (BestUtils)</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <article>
+            <section id="calculator">
+                <h2>Calculate Your BMI</h2>
+                <form id="bmiForm" class="calculator-form">
+                    <div class="form-group"> {/* Was unit-selector */}
+                        <label><input type="radio" name="unitSystem" value="metric" checked onchange="toggleUnits()"> Metric (kg, cm)</label>
+                        <label><input type="radio" name="unitSystem" value="imperial" onchange="toggleUnits()"> Imperial (lbs, ft, in)</label>
+                    </div>
+
+                    <div class="form-group"> {/* Was input-group */}
+                        <label for="weight">Weight:</label>
+                        <input type="number" id="weight" name="weight" step="any" required>
+                        <span id="weightUnit">kg</span>
+                    </div>
+
+                    <div class="form-group"> {/* Was input-group */}
+                        <label for="height">Height:</label>
+                        <span id="metricHeightGroup">
+                            <input type="number" id="heightCm" name="heightCm" step="any" required>
+                            <span id="heightUnitCm">cm</span>
+                        </span>
+                        <span id="imperialHeightGroup" style="display:none;">
+                            <input type="number" id="heightFt" name="heightFt" placeholder="ft" step="any">
+                            <input type="number" id="heightIn" name="heightIn" placeholder="in" step="any">
+                        </span>
+                    </div>
+                    <button type="button" onclick="calculateBmi()">Calculate BMI</button>
+                </form>
+                <div id="bmiResult" class="calculator-result" style="display:none;">
+                    <p>Your BMI: <span id="bmiValue" class="value"></span></p>
+                    <p>Category: <span id="bmiCategory" class="category"></span></p> {/* Existing class "category" can be kept if it has specific styles or for JS, but .value is for the number itself */}
+                </div>
+            </section>
+
+            <section id="description">
+                <h2>What is BMI?</h2>
+                <p>Body Mass Index (BMI) is a measure of body fat based on height and weight that applies to adult men and women. It is widely used as a general indicator of whether a person has a healthy body weight for their height.</p>
+                <p>While BMI can be a useful screening tool, it does not diagnose body fatness or health of an individual. Other factors like muscle mass, bone density, and overall body composition can affect BMI interpretation. Always consult with a healthcare provider for a comprehensive health assessment.</p>
+            </section>
+
+            <section id="how-to-use">
+                <h2>How to Use</h2>
+                <ol>
+                    <li><strong>Select Units:</strong> Choose between Metric (kilograms and centimeters) or Imperial (pounds, feet, and inches) units. The input fields will adjust accordingly.</li>
+                    <li><strong>Enter Weight:</strong> Input your current weight in the selected unit.</li>
+                    <li><strong>Enter Height:</strong>
+                        <ul>
+                            <li>If using Metric, enter your height in centimeters.</li>
+                            <li>If using Imperial, enter your height in feet and inches.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Click "Calculate BMI":</strong> The calculator will display your BMI value and the corresponding BMI category.</li>
+                </ol>
+            </section>
+
+            <section id="bmi-categories"> {/* Removed class="bmi-table" from section, will apply "data-table" to table itself */}
+                <h2>BMI Categories (WHO Standards)</h2>
+                <table class="data-table"> {/* Was previously in a div with class bmi-table wrapping table */}
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>BMI Range (kg/m²)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Underweight (Severe thinness)</td>
+                            <td>&lt; 16.0</td>
+                        </tr>
+                        <tr>
+                            <td>Underweight (Moderate thinness)</td>
+                            <td>16.0 – 16.9</td>
+                        </tr>
+                        <tr>
+                            <td>Underweight (Mild thinness)</td>
+                            <td>17.0 – 18.4</td>
+                        </tr>
+                        <tr>
+                            <td>Normal range</td>
+                            <td>18.5 – 24.9</td>
+                        </tr>
+                        <tr>
+                            <td>Overweight (Pre-obese)</td>
+                            <td>25.0 – 29.9</td>
+                        </tr>
+                        <tr>
+                            <td>Obese (Class I)</td>
+                            <td>30.0 – 34.9</td>
+                        </tr>
+                        <tr>
+                            <td>Obese (Class II)</td>
+                            <td>35.0 – 39.9</td>
+                        </tr>
+                        <tr>
+                            <td>Obese (Class III)</td>
+                            <td>≥ 40.0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> BestUtils.com - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        function toggleUnits() {
+            const unitSystem = document.querySelector('input[name="unitSystem"]:checked').value;
+            const weightUnit = document.getElementById('weightUnit');
+            const metricHeightGroup = document.getElementById('metricHeightGroup');
+            const imperialHeightGroup = document.getElementById('imperialHeightGroup');
+            const heightCmInput = document.getElementById('heightCm');
+            const heightFtInput = document.getElementById('heightFt');
+            const heightInInput = document.getElementById('heightIn');
+
+            if (unitSystem === 'metric') {
+                weightUnit.textContent = 'kg';
+                metricHeightGroup.style.display = 'inline'; // Keep display style for JS logic
+                imperialHeightGroup.style.display = 'none';
+                heightCmInput.required = true;
+                heightFtInput.required = false;
+                heightInInput.required = false;
+            } else { // imperial
+                weightUnit.textContent = 'lbs';
+                metricHeightGroup.style.display = 'none';
+                imperialHeightGroup.style.display = 'inline';
+                heightCmInput.required = false;
+                heightFtInput.required = true;
+                // heightInInput.required = true; // Not strictly, can be 0
+            }
+            // Clear inputs when switching
+            document.getElementById('weight').value = '';
+            heightCmInput.value = '';
+            heightFtInput.value = '';
+            heightInInput.value = '';
+            document.getElementById('bmiResult').style.display = 'none';
+        }
+
+        function calculateBmi() {
+            const unitSystem = document.querySelector('input[name="unitSystem"]:checked').value;
+            let weight = parseFloat(document.getElementById('weight').value);
+            let height; // height in meters
+
+            if (isNaN(weight) || weight <= 0) {
+                alert('Please enter a valid positive weight.');
+                return;
+            }
+
+            if (unitSystem === 'metric') {
+                const heightCm = parseFloat(document.getElementById('heightCm').value);
+                if (isNaN(heightCm) || heightCm <= 0) {
+                    alert('Please enter a valid positive height in centimeters.');
+                    return;
+                }
+                height = heightCm / 100; // Convert cm to meters
+            } else { // imperial
+                const heightFt = parseFloat(document.getElementById('heightFt').value) || 0;
+                const heightIn = parseFloat(document.getElementById('heightIn').value) || 0;
+                if ((isNaN(heightFt) || isNaN(heightIn)) || (heightFt <= 0 && heightIn <= 0) || heightFt < 0 || heightIn < 0) {
+                    alert('Please enter a valid positive height in feet and/or inches.');
+                    return;
+                }
+                height = ((heightFt * 12) + heightIn) * 0.0254; // Convert feet and inches to meters
+                weight = weight * 0.453592; // Convert lbs to kg
+            }
+
+            if (height <= 0) {
+                 alert('Please enter a valid positive height.');
+                return;
+            }
+
+            const bmi = weight / (height * height);
+            displayBmiResult(bmi);
+        }
+
+        function displayBmiResult(bmi) {
+            const bmiValueEl = document.getElementById('bmiValue');
+            const bmiCategoryEl = document.getElementById('bmiCategory');
+            let category = '';
+
+            if (bmi < 16.0) category = 'Underweight (Severe thinness)';
+            else if (bmi >= 16.0 && bmi <= 16.9) category = 'Underweight (Moderate thinness)';
+            else if (bmi >= 17.0 && bmi <= 18.4) category = 'Underweight (Mild thinness)';
+            else if (bmi >= 18.5 && bmi <= 24.9) category = 'Normal range';
+            else if (bmi >= 25.0 && bmi <= 29.9) category = 'Overweight (Pre-obese)';
+            else if (bmi >= 30.0 && bmi <= 34.9) category = 'Obese (Class I)';
+            else if (bmi >= 35.0 && bmi <= 39.9) category = 'Obese (Class II)';
+            else if (bmi >= 40.0) category = 'Obese (Class III)';
+            else category = 'N/A';
+
+            bmiValueEl.textContent = bmi.toFixed(2);
+            bmiCategoryEl.textContent = category;
+            document.getElementById('bmiResult').style.display = 'block';
+        }
+        
+        // Initialize units on page load
+        document.addEventListener('DOMContentLoaded', toggleUnits);
+    </script>
+</body>
+</html>

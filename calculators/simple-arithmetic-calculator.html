@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Arithmetic Calculator - Add, Subtract, Multiply, Divide | BestUtils.com</title>
+    <meta name="description" content="Perform basic arithmetic operations quickly and easily with our online Simple Arithmetic Calculator. Accurate results for addition, subtraction, multiplication, and division.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://bestutils.com/calculators/simple-arithmetic-calculator.html">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Use the Simple Arithmetic Calculator",
+      "description": "Step-by-step guide to using the simple arithmetic calculator for basic math operations.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Enter First Number",
+          "text": "Input the first number into the designated field."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Select Operation",
+          "text": "Choose the desired mathematical operation (addition, subtraction, multiplication, or division) from the dropdown menu."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Enter Second Number",
+          "text": "Input the second number into the designated field."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Calculate",
+          "text": "Click the 'Calculate' button to see the result."
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Simple Arithmetic Calculator</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home (Main Page)</a></li>
+            <li><a href="https://bestutils.com/calculators/">Calculators Home (BestUtils)</a></li>
+            <!-- Add more relevant navigation if needed -->
+        </ul>
+    </nav>
+
+    <main class="container">
+        <article>
+            <section id="calculator">
+                <h2>Calculator</h2>
+                <form id="arithmeticForm">
+                    <div>
+                        <label for="num1">First Number:</label>
+                        <input type="number" id="num1" name="num1" required>
+                    </div>
+                    <div>
+                        <label for="operation">Operation:</label>
+                        <select id="operation" name="operation">
+                            <option value="add">+</option>
+                            <option value="subtract">-</option>
+                            <option value="multiply">*</option>
+                            <option value="divide">/</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="num2">Second Number:</label>
+                        <input type="number" id="num2" name="num2" required>
+                    </div>
+                    <button type="button" onclick="calculate()">Calculate</button>
+                </form>
+                <div id="result" style="margin-top: 20px; font-weight: bold;">
+                    <p>Result: <span id="calculationResult"></span></p>
+                </div>
+            </section>
+
+            <section id="description">
+                <h2>Description</h2>
+                <p>This Simple Arithmetic Calculator allows you to perform basic mathematical operations such as addition, subtraction, multiplication, and division. It's a handy tool for quick calculations without needing a physical calculator.</p>
+            </section>
+
+            <section id="how-to-use">
+                <h2>How to Use</h2>
+                <ol>
+                    <li><strong>Enter First Number:</strong> Type the first number into the "First Number" field.</li>
+                    <li><strong>Select Operation:</strong> Choose your desired operation (+, -, *, /) from the dropdown list.</li>
+                    <li><strong>Enter Second Number:</strong> Type the second number into the "Second Number" field.</li>
+                    <li><strong>Click Calculate:</strong> Press the "Calculate" button. The result will appear below the button.</li>
+                </ol>
+                <p><strong>Error Handling:</strong> The calculator will show an error message for invalid operations like division by zero or if inputs are not numbers.</p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> BestUtils.com - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        function calculate() {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const operation = document.getElementById('operation').value;
+            const resultElement = document.getElementById('calculationResult');
+            let result;
+
+            if (isNaN(num1) || isNaN(num2)) {
+                resultElement.textContent = 'Error: Please enter valid numbers.';
+                return;
+            }
+
+            switch (operation) {
+                case 'add':
+                    result = num1 + num2;
+                    break;
+                case 'subtract':
+                    result = num1 - num2;
+                    break;
+                case 'multiply':
+                    result = num1 * num2;
+                    break;
+                case 'divide':
+                    if (num2 === 0) {
+                        resultElement.textContent = 'Error: Cannot divide by zero.';
+                        return;
+                    }
+                    result = num1 / num2;
+                    break;
+                default:
+                    resultElement.textContent = 'Error: Invalid operation.';
+                    return;
+            }
+            resultElement.textContent = result;
+        }
+    </script>
+</body>
+</html>

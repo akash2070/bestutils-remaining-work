@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Percentage Calculator - Calculate Percentages Easily | BestUtils.com</title>
+    <meta name="description" content="Free online percentage calculator for various percentage-based problems. Calculate percentage of a number, X is what % of Y, percentage change, and more.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://bestutils.com/calculators/percentage-calculator.html">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Use the Percentage Calculator",
+      "description": "Guide to using the percentage calculator for various percentage calculations.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Select Calculation Type",
+          "text": "Choose the type of percentage calculation you want to perform (e.g., 'What is X% of Y?', 'X is what % of Y?')."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Enter Values",
+          "text": "Input the required numbers into the respective fields for the chosen calculation type."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Calculate",
+          "text": "Click the 'Calculate' button for that section to see the result."
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Percentage Calculator</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home (Main Page)</a></li>
+            <li><a href="https://bestutils.com/calculators/">Calculators Home (BestUtils)</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <article>
+            <section id="description">
+                <h2>Description</h2>
+                <p>This Percentage Calculator helps you solve various percentage-related problems. You can find out what a certain percentage of a number is, determine what percentage one number represents of another, calculate percentage increase or decrease, and more.</p>
+            </section>
+
+            <section id="calculator-what-is-x-percent-of-y">
+                <h3>What is X% of Y?</h3>
+                <form id="formPercentOf" class="calculator-form">
+                    <div>
+                        <label for="percent">Percentage (X):</label>
+                        <input type="number" id="percent" name="percent" step="any" required placeholder="%">
+                    </div>
+                    <div>
+                        <label for="numY">Total Value (Y):</label>
+                        <input type="number" id="numY" name="numY" step="any" required>
+                    </div>
+                    <button type="button" onclick="calculatePercentOf()">Calculate</button>
+                </form>
+                <div class="calculator-result"><p>Result: <span id="resultPercentOf" class="value"></span></p></div>
+            </section>
+
+            <section id="calculator-x-is-what-percent-of-y">
+                <h3>X is what % of Y?</h3>
+                <form id="formXIsWhatPercentOfY" class="calculator-form">
+                    <div>
+                        <label for="numX1">Value (X):</label>
+                        <input type="number" id="numX1" name="numX1" step="any" required>
+                    </div>
+                    <div>
+                        <label for="numY1">Total Value (Y):</label>
+                        <input type="number" id="numY1" name="numY1" step="any" required>
+                    </div>
+                    <button type="button" onclick="calculateXIsWhatPercentOfY()">Calculate</button>
+                </form>
+                <div class="calculator-result"><p>Result: <span id="resultXIsWhatPercentOfY" class="value"></span>%</p></div>
+            </section>
+
+            <section id="calculator-percentage-change">
+                <h3>Percentage Change (Increase/Decrease)</h3>
+                <form id="formPercentageChange" class="calculator-form">
+                    <div>
+                        <label for="initialValue">Initial Value:</label>
+                        <input type="number" id="initialValue" name="initialValue" step="any" required>
+                    </div>
+                    <div>
+                        <label for="finalValue">Final Value:</label>
+                        <input type="number" id="finalValue" name="finalValue" step="any" required>
+                    </div>
+                    <button type="button" onclick="calculatePercentageChange()">Calculate</button>
+                </form>
+                <div class="calculator-result"><p>Change: <span id="resultPercentageChange" class="value"></span>%</p></div>
+            </section>
+            
+            <!-- Removed style block that was here -->
+
+            <section id="how-to-use">
+                <h2>How to Use</h2>
+                <p>This calculator offers three main functions:</p>
+                <ol>
+                    <li><strong>What is X% of Y?:</strong>
+                        <ul>
+                            <li>Enter the percentage you want to find in the "Percentage (X)" field.</li>
+                            <li>Enter the total amount in the "Total Value (Y)" field.</li>
+                            <li>Click "Calculate". The result is X% of Y.</li>
+                        </ul>
+                    </li>
+                    <li><strong>X is what % of Y?:</strong>
+                        <ul>
+                            <li>Enter the part amount in the "Value (X)" field.</li>
+                            <li>Enter the total amount in the "Total Value (Y)" field.</li>
+                            <li>Click "Calculate". The result is the percentage that X represents of Y.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Percentage Change (Increase/Decrease):</strong>
+                        <ul>
+                            <li>Enter the starting value in the "Initial Value" field.</li>
+                            <li>Enter the final value in the "Final Value" field.</li>
+                            <li>Click "Calculate". The result is the percentage change (positive for increase, negative for decrease).</li>
+                        </ul>
+                    </li>
+                </ol>
+                <p>Ensure you enter valid numbers in all fields for accurate results.</p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> BestUtils.com - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        function getNum(id) { return parseFloat(document.getElementById(id).value); }
+        function setResult(id, value) { document.getElementById(id).textContent = value; }
+        function displayError(id, message) { 
+            const el = document.getElementById(id);
+            el.textContent = 'Error: ' + message;
+            el.style.color = 'red'; // Ensure error messages are distinct
+        }
+
+        function calculatePercentOf() {
+            const percent = getNum('percent');
+            const numY = getNum('numY');
+            const resultSpan = document.getElementById('resultPercentOf');
+            if (isNaN(percent) || isNaN(numY)) {
+                displayError('resultPercentOf', 'Please enter valid numbers.');
+                return;
+            }
+            resultSpan.style.color = 'inherit'; 
+            setResult('resultPercentOf', (percent / 100) * numY);
+        }
+
+        function calculateXIsWhatPercentOfY() {
+            const numX1 = getNum('numX1');
+            const numY1 = getNum('numY1');
+            const resultSpan = document.getElementById('resultXIsWhatPercentOfY');
+            if (isNaN(numX1) || isNaN(numY1)) {
+                displayError('resultXIsWhatPercentOfY', 'Please enter valid numbers.');
+                return;
+            }
+            if (numY1 === 0) {
+                displayError('resultXIsWhatPercentOfY', 'Total Value (Y) cannot be zero.');
+                return;
+            }
+            resultSpan.style.color = 'inherit';
+            setResult('resultXIsWhatPercentOfY', (numX1 / numY1) * 100);
+        }
+
+        function calculatePercentageChange() {
+            const initialValue = getNum('initialValue');
+            const finalValue = getNum('finalValue');
+            const resultSpan = document.getElementById('resultPercentageChange');
+            if (isNaN(initialValue) || isNaN(finalValue)) {
+                displayError('resultPercentageChange', 'Please enter valid numbers.');
+                return;
+            }
+            if (initialValue === 0) {
+                if (finalValue === 0) {
+                     resultSpan.style.color = 'inherit';
+                     setResult('resultPercentageChange', 0); 
+                } else {
+                    displayError('resultPercentageChange', 'Initial Value cannot be zero for percentage change unless final value is also zero.');
+                }
+                return;
+            }
+            resultSpan.style.color = 'inherit';
+            const change = ((finalValue - initialValue) / initialValue) * 100;
+            setResult('resultPercentageChange', change.toFixed(2)); 
+        }
+    </script>
+</body>
+</html>

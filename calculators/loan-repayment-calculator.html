@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Loan Repayment Calculator | Estimate Monthly Payments | BestUtils.com</title>
+    <meta name="description" content="Estimate your monthly loan payments with our simple fixed-rate loan repayment calculator. Input loan amount, interest rate, and term to see your estimated payment.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://bestutils.com/calculators/loan-repayment-calculator.html">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Use the Simple Loan Repayment Calculator",
+      "description": "Estimate your monthly payments for a fixed-rate loan.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Enter Loan Amount",
+          "text": "Input the total principal amount of the loan."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Enter Annual Interest Rate",
+          "text": "Input the annual interest rate for the loan (e.g., 5 for 5%)."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Enter Loan Term",
+          "text": "Input the duration of the loan in years."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Calculate Payment",
+          "text": "Click the 'Calculate Monthly Payment' button to see the estimated monthly payment, total repayment, and total interest."
+        }
+      ]
+    }
+    </script>
+    <!-- Removed style block -->
+</head>
+<body>
+    <header>
+        <h1>Simple Loan Repayment Calculator</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home (Main Page)</a></li>
+            <li><a href="https://bestutils.com/calculators/">Calculators Home (BestUtils)</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <article>
+            <section id="calculator">
+                <h2>Calculate Loan Payments</h2>
+                <form id="loanForm" class="calculator-form">
+                    <div>
+                        <label for="loanAmount">Loan Amount (Principal): $</label>
+                        <input type="number" id="loanAmount" step="any" placeholder="e.g., 10000" required>
+                    </div>
+                    <div>
+                        <label for="interestRate">Annual Interest Rate (%):</label>
+                        <input type="number" id="interestRate" step="any" placeholder="e.g., 5" required>
+                    </div>
+                    <div>
+                        <label for="loanTerm">Loan Term (Years):</label>
+                        <input type="number" id="loanTerm" placeholder="e.g., 5" required>
+                    </div>
+                    <button type="button" onclick="calculateLoan()">Calculate Monthly Payment</button>
+                </form>
+                <div id="loanResult" class="calculator-result" style="display:none;">
+                    <p><span class="label">Estimated Monthly Payment:</span> $<span id="monthlyPayment" class="value"></span></p>
+                    <p><span class="label">Total Repayment:</span> $<span id="totalRepayment" class="value"></span></p>
+                    <p><span class="label">Total Interest Paid:</span> $<span id="totalInterest" class="value"></span></p>
+                </div>
+            </section>
+
+            <section id="description">
+                <h2>Description</h2>
+                <p>This calculator helps you estimate the monthly payments for a simple fixed-rate loan, such as a personal loan or a car loan. It uses the standard amortization formula. Please note that this calculation does not include other potential costs like taxes, insurance (for mortgages or car loans), or any other fees associated with the loan. It provides an estimate for the principal and interest components of your payment.</p>
+            </section>
+
+            <section id="how-to-use">
+                <h2>How to Use</h2>
+                <ol>
+                    <li><strong>Enter Loan Amount:</strong> Input the total amount of money you are borrowing (principal).</li>
+                    <li><strong>Enter Annual Interest Rate:</strong> Provide the yearly interest rate for the loan (e.g., if the rate is 5%, enter 5).</li>
+                    <li><strong>Enter Loan Term:</strong> Specify the duration of the loan in years (e.g., for a 5-year loan, enter 5).</li>
+                    <li><strong>Click "Calculate Monthly Payment":</strong> The calculator will show your estimated monthly payment, the total amount you'll repay over the loan term, and the total interest paid.</li>
+                </ol>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> BestUtils.com - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        function getNum(id) { return parseFloat(document.getElementById(id).value); }
+        function setResult(id, value) { document.getElementById(id).textContent = value.toFixed(2); }
+        function displayError(message) { 
+            const resultDiv = document.getElementById('loanResult');
+            resultDiv.style.display = 'block';
+            // Ensure the p element for error has a specific class or style to make it red
+            resultDiv.innerHTML = `<p class="error-message" style='color:red;'>Error: ${message}</p>`;
+        }
+
+        function calculateLoan() {
+            const principal = getNum('loanAmount');
+            const annualInterestRate = getNum('interestRate');
+            const loanTermYears = getNum('loanTerm');
+            const resultDiv = document.getElementById('loanResult');
+
+            if (isNaN(principal) || principal <= 0) {
+                displayError('Please enter a valid loan amount.'); return;
+            }
+            if (isNaN(annualInterestRate) || annualInterestRate < 0) { // Rate can be 0
+                displayError('Please enter a valid annual interest rate.'); return;
+            }
+            if (isNaN(loanTermYears) || loanTermYears <= 0) {
+                displayError('Please enter a valid loan term in years.'); return;
+            }
+
+            const monthlyInterestRate = (annualInterestRate / 100) / 12;
+            const numberOfPayments = loanTermYears * 12;
+            let monthlyPayment;
+
+            if (monthlyInterestRate === 0) { // Handle 0% interest rate
+                monthlyPayment = principal / numberOfPayments;
+            } else {
+                monthlyPayment = principal * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+            }
+            
+            const totalRepayment = monthlyPayment * numberOfPayments;
+            const totalInterest = totalRepayment - principal;
+
+            resultDiv.style.display = 'block';
+            // Clear previous error messages if any by resetting innerHTML and ensure result values are not red
+            resultDiv.innerHTML = `
+                <p><span class="label">Estimated Monthly Payment:</span> $<span id="monthlyPayment" class="value"></span></p>
+                <p><span class="label">Total Repayment:</span> $<span id="totalRepayment" class="value"></span></p>
+                <p><span class="label">Total Interest Paid:</span> $<span id="totalInterest" class="value"></span></p>
+            `;
+            setResult('monthlyPayment', monthlyPayment);
+            setResult('totalRepayment', totalRepayment);
+            setResult('totalInterest', totalInterest);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter - Online Conversions (Temp, Weight, Length) | BestUtils.com</title>
+    <meta name="description" content="Free online unit converter for common measurements. Easily convert temperature (Celsius, Fahrenheit), weight (kilograms, pounds), and length (centimeters, inches).">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://bestutils.com/calculators/unit-converter.html">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Use the Unit Converter",
+      "description": "Convert values between different units for temperature, weight, and length.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Select Conversion Category",
+          "text": "Choose the type of conversion you want to perform (e.g., Temperature, Weight, Length)."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Enter Value",
+          "text": "Input the numerical value you wish to convert into the 'Value' field."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Select Units",
+          "text": "Choose the unit you are converting from and the unit you are converting to using the dropdown menus."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Click Convert",
+          "text": "Press the 'Convert' button to see the result."
+        }
+      ]
+    }
+    </script>
+    <!-- Removed style block -->
+</head>
+<body>
+    <header>
+        <h1>Unit Converter</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home (Main Page)</a></li>
+            <li><a href="https://bestutils.com/calculators/">Calculators Home (BestUtils)</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <article>
+            <section id="description">
+                <h2>Description</h2>
+                <p>This Unit Converter allows you to easily convert between common units for temperature, weight, and length. Select the type of conversion, input your value, choose your units, and get the result instantly.</p>
+            </section>
+
+            <!-- Temperature Converter -->
+            <section id="temp-converter"> {/* Removed class="converter-section" */}
+                <h3>Temperature Converter</h3>
+                <form id="tempForm" class="calculator-form">
+                    <div>
+                        <label for="tempValue">Value:</label>
+                        <input type="number" id="tempValue" step="any" required>
+                    </div>
+                    <div>
+                        <label for="fromTempUnit">From:</label>
+                        <select id="fromTempUnit">
+                            <option value="C">Celsius (°C)</option>
+                            <option value="F">Fahrenheit (°F)</option>
+                        </select>
+                        <label for="toTempUnit">To:</label>
+                        <select id="toTempUnit">
+                            <option value="F">Fahrenheit (°F)</option>
+                            <option value="C">Celsius (°C)</option>
+                        </select>
+                    </div>
+                    <button type="button" onclick="convertTemperature()">Convert</button>
+                    <div class="calculator-result"><p>Result: <span id="tempResult" class="value"></span></p></div>
+                </form>
+            </section>
+
+            <!-- Weight Converter -->
+            <section id="weight-converter"> {/* Removed class="converter-section" */}
+                <h3>Weight Converter</h3>
+                <form id="weightForm" class="calculator-form">
+                    <div>
+                        <label for="weightValue">Value:</label>
+                        <input type="number" id="weightValue" step="any" required>
+                    </div>
+                    <div>
+                        <label for="fromWeightUnit">From:</label>
+                        <select id="fromWeightUnit">
+                            <option value="kg">Kilograms (kg)</option>
+                            <option value="lb">Pounds (lb)</option>
+                        </select>
+                        <label for="toWeightUnit">To:</label>
+                        <select id="toWeightUnit">
+                            <option value="lb">Pounds (lb)</option>
+                            <option value="kg">Kilograms (kg)</option>
+                        </select>
+                    </div>
+                    <button type="button" onclick="convertWeight()">Convert</button>
+                    <div class="calculator-result"><p>Result: <span id="weightResult" class="value"></span></p></div>
+                </form>
+            </section>
+
+            <!-- Length Converter -->
+            <section id="length-converter"> {/* Removed class="converter-section" */}
+                <h3>Length Converter</h3>
+                <form id="lengthForm" class="calculator-form">
+                    <div>
+                        <label for="lengthValue">Value:</label>
+                        <input type="number" id="lengthValue" step="any" required>
+                    </div>
+                    <div>
+                        <label for="fromLengthUnit">From:</label>
+                        <select id="fromLengthUnit">
+                            <option value="cm">Centimeters (cm)</option>
+                            <option value="in">Inches (in)</option>
+                        </select>
+                        <label for="toLengthUnit">To:</label>
+                        <select id="toLengthUnit">
+                            <option value="in">Inches (in)</option>
+                            <option value="cm">Centimeters (cm)</option>
+                        </select>
+                    </div>
+                    <button type="button" onclick="convertLength()">Convert</button>
+                    <div class="calculator-result"><p>Result: <span id="lengthResult" class="value"></span></p></div>
+                </form>
+            </section>
+
+            <section id="how-to-use">
+                <h2>How to Use</h2>
+                <p>For each converter (Temperature, Weight, Length):</p>
+                <ol>
+                    <li>Enter the numerical value you wish to convert in the "Value" field.</li>
+                    <li>Select the unit you are converting from in the "From" dropdown.</li>
+                    <li>Select the unit you wish to convert to in the "To" dropdown.</li>
+                    <li>Click the "Convert" button. The result will appear below the button.</li>
+                </ol>
+                <p>Please ensure you enter valid numbers for accurate conversions.</p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> BestUtils.com - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        function getNum(id) { return parseFloat(document.getElementById(id).value); }
+        function getUnit(id) { return document.getElementById(id).value; }
+        function setResult(id, value, unit) { 
+            const el = document.getElementById(id);
+            el.textContent = value.toFixed(2) + ' ' + unit;
+            el.style.color = 'inherit'; // Reset color on success
+        }
+        function displayError(id, message) { 
+            const el = document.getElementById(id);
+            el.textContent = 'Error: ' + message;
+            el.style.color = 'red'; // Set error color
+        }
+
+        function convertTemperature() {
+            const val = getNum('tempValue');
+            const from = getUnit('fromTempUnit');
+            const to = getUnit('toTempUnit');
+            let result;
+
+            if (isNaN(val)) {
+                displayError('tempResult', 'Please enter a valid number.');
+                return;
+            }
+
+            if (from === to) {
+                result = val;
+            } else if (from === 'C' && to === 'F') {
+                result = (val * 9/5) + 32;
+            } else if (from === 'F' && to === 'C') {
+                result = (val - 32) * 5/9;
+            } else {
+                 displayError('tempResult', 'Invalid unit selection.'); return;
+            }
+            setResult('tempResult', result, to);
+        }
+
+        function convertWeight() {
+            const val = getNum('weightValue');
+            const from = getUnit('fromWeightUnit');
+            const to = getUnit('toWeightUnit');
+            let result;
+            const kgToLb = 2.20462;
+
+            if (isNaN(val)) {
+                displayError('weightResult', 'Please enter a valid number.');
+                return;
+            }
+
+            if (from === to) {
+                result = val;
+            } else if (from === 'kg' && to === 'lb') {
+                result = val * kgToLb;
+            } else if (from === 'lb' && to === 'kg') {
+                result = val / kgToLb;
+            } else {
+                 displayError('weightResult', 'Invalid unit selection.'); return;
+            }
+            setResult('weightResult', result, to);
+        }
+
+        function convertLength() {
+            const val = getNum('lengthValue');
+            const from = getUnit('fromLengthUnit');
+            const to = getUnit('toLengthUnit');
+            let result;
+            const cmToIn = 0.393701;
+
+            if (isNaN(val)) {
+                displayError('lengthResult', 'Please enter a valid number.');
+                return;
+            }
+            
+            if (from === to) {
+                result = val;
+            } else if (from === 'cm' && to === 'in') {
+                result = val * cmToIn;
+            } else if (from === 'in' && to === 'cm') {
+                result = val / cmToIn;
+            } else {
+                 displayError('lengthResult', 'Invalid unit selection.'); return;
+            }
+            setResult('lengthResult', result, to);
+        }
+    </script>
+</body>
+</html>
